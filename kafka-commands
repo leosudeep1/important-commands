@@ -1,0 +1,35 @@
+Start zookeeper
+zookeeper-server-start.bat config\zookeeper.properties
+
+Start kafka broker
+kafka-server-start.bat config\server.properties
+
+Create first kafka topic
+Kafka-topics --zookeeper 127.0.0.1:2181 --topic first_topic --create --partitions 3 --replication-factor 1
+Note: above command will create 3 partitions and one replication factor, we can't create replication factor more than running kafka broker.
+
+Get kafka lists
+Kafka-topics --zookeeper 127.0.0.1:2181 --list
+
+Get description of a topic
+Kafka-topics --zookeeper 127.0.0.1:2181 --topic first_topic --describe
+
+Delete topic
+Kafka-topics --zookeeper 127.0.0.1:2181 --topic second_topic --delete
+
+
+Kafka Producer
+
+Start a kafka producer
+Kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic
+
+Add properties in producer
+Kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic --producer-property acks=all
+
+Kafka Consumer
+
+Start a kafka consumer
+Kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic
+
+Get message from beginning
+Kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic first_topic --from-beginning
